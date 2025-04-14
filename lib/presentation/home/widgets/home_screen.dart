@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onTapHandler(BuildContext context, int id) {
     _log.info("on tap: $id");
-    context.go('/category/$id');
+    context.push('/category/$id');
   }
 
   @override
