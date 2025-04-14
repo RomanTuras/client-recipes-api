@@ -41,44 +41,39 @@ class _HomeScreenState extends State<HomeScreen> {
               return Text('Failed!');
             }
 
-            return child ?? Text('Null');
-          },
-          child: ListenableBuilder(
-              listenable: widget.viewmodel,
-              builder: (context, child) {
-                return Column(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 15.0),
-                        child: CustomScrollView(
-                          slivers: [
-                            SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                    (BuildContext context, int index) {
-                                      final category = widget.viewmodel.categories[index];
-                                  return category.subcategories.isNotEmpty ? ListTile(
-                                    leading: category.subcategories.isNotEmpty ? Icon(Icons.folder_copy_outlined) : Icon(Icons.folder_outlined),
-                                    title: Text('${category.name} (${category.recipesCount})'),
-                                    subtitle: Text(category.subcategories),
-                                    onTap: () => {onTapHandler(context, category.id)},
-                                  ) : ListTile(
-                                    leading: category.subcategories.isNotEmpty ? Icon(Icons.folder_copy_outlined) : Icon(Icons.folder_outlined),
-                                    title: Text('${category.name} (${category.recipesCount})'),
-                                    onTap: () => {onTapHandler(context, category.id)},
-                                  );
-                                },
-                                childCount: widget.viewmodel.categories.length, // Number of items
-                              ),
-                            ),
-                          ],
+            return Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 10.0, vertical: 15.0),
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                                (BuildContext context, int index) {
+                              final category = widget.viewmodel.categories[index];
+                              return category.subcategories.isNotEmpty ? ListTile(
+                                leading: category.subcategories.isNotEmpty ? Icon(Icons.folder_copy_outlined) : Icon(Icons.folder_outlined),
+                                title: Text('${category.name} (${category.recipesCount})'),
+                                subtitle: Text(category.subcategories),
+                                onTap: () => {onTapHandler(context, category.id)},
+                              ) : ListTile(
+                                leading: category.subcategories.isNotEmpty ? Icon(Icons.folder_copy_outlined) : Icon(Icons.folder_outlined),
+                                title: Text('${category.name} (${category.recipesCount})'),
+                                onTap: () => {onTapHandler(context, category.id)},
+                              );
+                            },
+                            childCount: widget.viewmodel.categories.length, // Number of items
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                );
-              }),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

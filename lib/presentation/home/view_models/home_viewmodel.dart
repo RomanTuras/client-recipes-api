@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
 import '../../../data/model/category_model.dart';
-import '../../../domain/repositories/category_repository.dart';
+import '../../../domain/repositories/cook_book_repository.dart';
 import '../../../utils/command.dart';
 import '../../../utils/result.dart';
 
 
 class HomeViewmodel extends ChangeNotifier {
-  final CookBookRepository _categoryRepository;
+  final CookBookRepository _cookBookRepository;
   late Command0 load;
   late Command1<void, String> search;
 
-  HomeViewmodel({required CookBookRepository categoryRepository})
-      : _categoryRepository = categoryRepository {
+  HomeViewmodel({required CookBookRepository cookBookRepository})
+      : _cookBookRepository = cookBookRepository {
     load = Command0(_load)..execute();
   }
 
@@ -25,7 +25,7 @@ class HomeViewmodel extends ChangeNotifier {
 
   Future<Result> _load() async {
     try {
-      final result = await _categoryRepository.fetchMainCategories();
+      final result = await _cookBookRepository.fetchMainCategories();
       switch (result) {
         case Ok<List<CategoryModel>>():
           _categories = result.value;

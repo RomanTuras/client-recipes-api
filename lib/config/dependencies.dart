@@ -7,7 +7,7 @@ import 'package:recipes/routing/router.dart';
 import '../data/repositories/auth/auth_repository.dart';
 import '../data/repositories/auth/auth_repository_dev.dart';
 import '../data/services/cook_book_api_service.dart';
-import '../domain/repositories/category_repository.dart';
+import '../domain/repositories/cook_book_repository.dart';
 
 
 List<SingleChildWidget> get providersRemote {

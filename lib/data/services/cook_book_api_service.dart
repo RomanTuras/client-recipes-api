@@ -26,9 +26,28 @@ class CookBookApiService {
 
   final _log = Logger('CookBookApiService');
 
+  Future<Result<RecipeModel>> fetchRecipe(int id) async {
+    try {
+      final response = await http.get(
+          Uri.parse(
+              '$recipesAPIBaseURL/recipe/$id'),
+          headers: _headers);
+
+      if (response.statusCode == 200) {
+        final dynamic data = json.decode(utf8.decode(response.bodyBytes));
+        return Result.ok(RecipeModel.fromJson(data));
+        // return Result.ok(data.map<RecipeModel>((json) => RecipeModel.fromJson(json))
+        //     .toList());
+      } else {
+        return Result.error(HttpException('Invalid response'));
+      }
+    } on Exception catch (error) {
+      return Result.error(error);
+    }
+  }
+
   Future<Result<List<CategoryModel>>> fetchMainCategories() async {
     try {
-      _log.info('$recipesAPIBaseURL/main-categories');
       final response = await http.get(
           Uri.parse(
               '$recipesAPIBaseURL/main-categories'),
@@ -59,7 +78,12 @@ class CookBookApiService {
         final Map<String, dynamic> data = json.decode(utf8.decode(response.bodyBytes));
         List<SubCategoryModel> subcategories = (data['subcategories'] as List).map((json) => SubCategoryModel.fromJson(json)).toList();
         List<Recipe> recipes = (data['recipes'] as List).map((json) => RecipeModel.fromJson(json)).toList();
-        final CategoryContentModel res = CategoryContentModel(subCategories: subcategories, recipes: recipes);
+        String mainCategoryName = data['main_category_name'];
+        final CategoryContentModel res = CategoryContentModel(
+          subCategories: subcategories,
+          recipes: recipes,
+          mainCategoryName: mainCategoryName,
+        );
         return Result.ok(res);
       } else {
         return Result.error(HttpException('Invalid response'));

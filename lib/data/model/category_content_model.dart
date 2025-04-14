@@ -5,12 +5,14 @@ class CategoryContentModel extends CategoryContent {
   CategoryContentModel({
     required super.subCategories,
     required super.recipes,
+    required super.mainCategoryName,
   });
 
   factory CategoryContentModel.fromJson(Map<String, dynamic> json) {
     return CategoryContentModel(
       subCategories: json['sub_categories'],
       recipes: json['recipes'],
+      mainCategoryName: json['main_category_name'],
     );
   }
 
@@ -18,6 +20,7 @@ class CategoryContentModel extends CategoryContent {
     return {
       'sub_categories': subCategories,
       'recipes': recipes,
+      'main_category_name': mainCategoryName,
     };
   }
 }

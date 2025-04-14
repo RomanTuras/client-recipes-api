@@ -3,7 +3,7 @@ class Recipe {
   final String recipeTitle;
   final String? recipe;
   final int categoryId;
-  final bool make;
+  final bool? make;
   final int? subCategoryId;
   final String? image;
 

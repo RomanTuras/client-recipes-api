@@ -1,6 +1,9 @@
 import 'package:go_router/go_router.dart';
+import 'package:recipes/data/model/recipe_model.dart';
 import 'package:recipes/presentation/home/view_models/category_content_viewmodel.dart';
+import 'package:recipes/presentation/home/view_models/recipe_viewmodel.dart';
 import 'package:recipes/presentation/home/widgets/category_content_screen.dart';
+import 'package:recipes/presentation/home/widgets/recipe_screen.dart';
 import '../data/repositories/auth/auth_repository.dart';
 import '../presentation/home/view_models/home_viewmodel.dart';
 import '../presentation/home/widgets/home_screen.dart';
@@ -26,7 +29,7 @@ GoRouter goRouter = GoRouter(
       path: Routes.home,
       builder: (context, state) {
         final viewModel = HomeViewmodel(
-          categoryRepository: context.read(),
+          cookBookRepository: context.read(),
         );
         return HomeScreen(viewmodel: viewModel);
       },
@@ -36,10 +39,21 @@ GoRouter goRouter = GoRouter(
       builder: (context, state) {
         final id = int.parse(state.pathParameters['id']!);
         final viewModel = CategoryContentViewmodel(
-          categoryRepository: context.read(),
+          cookBookRepository: context.read(),
           id: id,
         );
         return CategoryContentScreen(viewmodel: viewModel);
+      },
+    ),
+    GoRoute(
+      path: '/recipe/:id',
+      builder: (context, state) {
+        final id = int.parse(state.pathParameters['id']!);
+        final viewModel = RecipeViewmodel(
+          cookBookRepository: context.read(),
+          id: id,
+        );
+        return RecipeScreen(viewmodel: viewModel);
       },
     ),
   ],

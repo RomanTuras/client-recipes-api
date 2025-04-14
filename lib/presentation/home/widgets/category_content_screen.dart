@@ -22,7 +22,7 @@ class _CategoryContentScreenState extends State<CategoryContentScreen> {
 
   void onTapRecipeHandler(BuildContext context, int id) {
     _log.info("on tap recipe: $id");
-    // context.go('/recipe/$id');
+    context.push('/recipe/$id');
   }
   
   void onBackButtonPressed(BuildContext context) {
@@ -31,11 +31,12 @@ class _CategoryContentScreenState extends State<CategoryContentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _log.info('CategoryContentScreen');
     return SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Subcategory'),
+            title: ListenableBuilder(listenable: widget.viewmodel, builder: (_, child) {
+              return Text(widget.viewmodel.mainCategoryName);
+            },),
             leading: IconButton(
               onPressed: () => {onBackButtonPressed(context)},
               icon: Icon(Icons.arrow_left),),),
@@ -97,7 +98,10 @@ class _CategoryContentScreenState extends State<CategoryContentScreen> {
                         ),
                       ],
                     );
-                  },),
-        ),),);
+                  },
+              ),
+        ),
+        ),
+    );
   }
 }
