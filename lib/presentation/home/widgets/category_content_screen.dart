@@ -15,16 +15,30 @@ class CategoryContentScreen extends StatefulWidget {
 class _CategoryContentScreenState extends State<CategoryContentScreen> {
   final _log = Logger('CategoryContentScreen');
 
-  void onTapHandler(BuildContext context, int id) {
-    _log.info("on tap: $id");
-    // context.go('/category/$id');
+  void onTapCategoryHandler(BuildContext context, int id) {
+    _log.info("on tap category: $id");
+    // context.go('/subcategory/$id');
+  }
+
+  void onTapRecipeHandler(BuildContext context, int id) {
+    _log.info("on tap recipe: $id");
+    // context.go('/recipe/$id');
+  }
+  
+  void onBackButtonPressed(BuildContext context) {
+    context.go('/');
   }
 
   @override
   Widget build(BuildContext context) {
-    // _log.info(widget.viewmodel.getCategoryContent);
+    _log.info('CategoryContentScreen');
     return SafeArea(
         child: Scaffold(
+          appBar: AppBar(
+            title: Text('Subcategory'),
+            leading: IconButton(
+              onPressed: () => {onBackButtonPressed(context)},
+              icon: Icon(Icons.arrow_left),),),
             body: ListenableBuilder(
                 listenable: widget.viewmodel,
                 builder: (context, child) {
@@ -58,7 +72,7 @@ class _CategoryContentScreenState extends State<CategoryContentScreen> {
                                       return ListTile(
                                         leading: const Icon(Icons.folder_outlined),
                                         title: Text('${subcategories[index].name} (recipes)'),
-                                        onTap: () => {onTapHandler(context, subcategories[index].id)},
+                                        onTap: () => {onTapCategoryHandler(context, subcategories[index].id)},
                                       );
                                     },
                                     childCount: widget.viewmodel.subcategories.length, // Number of items
@@ -71,7 +85,7 @@ class _CategoryContentScreenState extends State<CategoryContentScreen> {
                                       return ListTile(
                                         leading: const Icon(Icons.receipt),
                                         title: Text(recipes[index].recipeTitle),
-                                        onTap: () => {onTapHandler(context, recipes[index].id)},
+                                        onTap: () => {onTapRecipeHandler(context, recipes[index].id)},
                                       );
                                     },
                                     childCount: widget.viewmodel.recipes.length, // Number of items

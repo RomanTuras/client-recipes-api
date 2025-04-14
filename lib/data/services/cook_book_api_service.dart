@@ -28,10 +28,12 @@ class CookBookApiService {
 
   Future<Result<List<CategoryModel>>> fetchMainCategories() async {
     try {
+      _log.info('$recipesAPIBaseURL/main-categories');
       final response = await http.get(
           Uri.parse(
               '$recipesAPIBaseURL/main-categories'),
           headers: _headers);
+
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
@@ -46,11 +48,11 @@ class CookBookApiService {
     }
   }
 
-  Future<Result<CategoryContentModel>> fetchCategoryContent(categoryId) async {
+  Future<Result<CategoryContentModel>> fetchCategoryContent(id) async {
     try {
       final response = await http.get(
           Uri.parse(
-              '$recipesAPIBaseURL/category/$categoryId'),
+              '$recipesAPIBaseURL/category/$id'),
           headers: _headers);
 
       if (response.statusCode == 200) {

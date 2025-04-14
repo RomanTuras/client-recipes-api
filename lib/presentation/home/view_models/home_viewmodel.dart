@@ -30,7 +30,7 @@ class HomeViewmodel extends ChangeNotifier {
         case Ok<List<CategoryModel>>():
           _categories = result.value;
           _log.fine('Loaded main categories');
-        case Error<List<CategoryModel>>():
+        case Error():
           _log.warning('Failed to load main categories');
       }
       return result;

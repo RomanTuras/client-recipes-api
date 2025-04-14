@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:recipes/data/model/recipe_model.dart';
-import 'package:recipes/data/model/sub_category_model.dart';
 import 'package:recipes/domain/entities/recipe.dart';
 
 import '../../../data/model/category_content_model.dart';
-import '../../../data/model/category_model.dart';
 import '../../../domain/entities/sub_category.dart';
 import '../../../domain/repositories/category_repository.dart';
 import '../../../utils/command.dart';
@@ -25,10 +22,6 @@ class CategoryContentViewmodel extends ChangeNotifier {
 
   final _log = Logger('CategoryContentViewmodel');
 
-  // CategoryContentModel _categoryContent = CategoryContentModel(subCategories: [], recipes: [],);
-  //
-  // CategoryContentModel get getCategoryContent => _categoryContent;
-
   List<Recipe> _recipes = [];
   List<Recipe> get recipes => _recipes;
 
@@ -40,7 +33,6 @@ class CategoryContentViewmodel extends ChangeNotifier {
       final result = await _categoryRepository.fetchCategoryContent(_id);
       switch (result) {
         case Ok<CategoryContentModel>():
-          // _categoryContent = result.value;
           _subcategories = result.value.subCategories;
           _recipes = result.value.recipes;
           _log.fine('Loaded category content');

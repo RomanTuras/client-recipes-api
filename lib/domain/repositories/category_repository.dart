@@ -10,5 +10,5 @@ abstract class CookBookRepository {
   Future<Result<List<CategoryModel>>> fetchMainCategories();
 
   /// Fetching the content of certain category by ID [CategoryContentModel]
-  Future<Result<CategoryContentModel>> fetchCategoryContent(int categoryId);
+  Future<Result<CategoryContentModel>> fetchCategoryContent(int id);
 }

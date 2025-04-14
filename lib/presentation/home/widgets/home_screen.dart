@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
       top: true,
       bottom: true,
       child: Scaffold(
+        appBar: AppBar(title: const Text('Main Categories'),),
         body: ListenableBuilder(
           listenable: widget.viewmodel,
           builder: (context, child) {
